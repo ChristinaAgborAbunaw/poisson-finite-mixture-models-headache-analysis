@@ -1,0 +1,111 @@
+%============================================================
+% STATISTICAL METHODOLOGY
+%============================================================
+
+\section{Statistical Methodology}
+\label{sec:methodology}
+
+\subsection{Overview}
+
+The analysis was designed to investigate whether the observed heterogeneity in baseline headache frequency could be represented by a finite number of latent Poisson distributions. The analysis was conducted in several stages. The data were first inspected and cleaned, followed by descriptive analysis and assessment of over-dispersion. A single-component Poisson model was then fitted as a reference model. Poisson finite mixture models with different numbers of components were subsequently estimated and compared.
+
+Nonparametric maximum likelihood estimation (NPMLE) was used as an exploratory approach to investigate the underlying mixing distribution. The expectation-maximization (EM) framework was used in the estimation of finite mixture models. Posterior probabilities were used to classify patients according to their most likely latent component.
+
+The analyses were implemented using both R and SAS. R was used particularly for NPMLE analysis, gradient-function assessment, FlexMix modelling, posterior classification, and graphical presentation. SAS was used for the Poisson reference model, finite mixture model estimation, model comparison, and the analysis including age as a covariate.
+
+\subsection{Poisson Reference Model}
+
+Let $Y_i$ denote the number of headache days observed for patient $i$, where $i=1,\ldots,n$. Under the standard Poisson model,
+\[
+Y_i \sim \operatorname{Poisson}(\lambda),
+\]
+where $\lambda>0$ represents the expected number of headache days.
+
+The probability mass function is
+\[
+P(Y_i=y_i)=\frac{\exp(-\lambda)\lambda^{y_i}}{y_i!},\qquad y_i=0,1,2,\ldots.
+\]
+
+For a Poisson distribution, $E(Y_i)=\lambda$ and $\operatorname{Var}(Y_i)=\lambda$. Consequently, equality between the mean and variance is an important diagnostic assumption of the standard Poisson model.
+
+\subsection{Assessment of Over-dispersion}
+
+The observed variance was compared with the observed mean using the variance-to-mean ratio,
+\[
+D=\frac{\operatorname{Var}(Y)}{E(Y)}.
+\]
+Values substantially greater than one indicate over-dispersion relative to the Poisson assumption. In this study, the dispersion ratio was calculated from the cleaned headache-frequency variable before fitting the finite mixture models.
+
+\subsection{Poisson Finite Mixture Model}
+
+To account for potential heterogeneity between patients, a finite mixture of Poisson distributions was considered. For a model with $K$ components,
+\[
+P(Y_i=y_i)=\sum_{k=1}^{K}\pi_k\frac{\exp(-\lambda_k)\lambda_k^{y_i}}{y_i!},
+\]
+where $\lambda_k$ is the Poisson mean for component $k$ and $\pi_k$ is the corresponding mixing proportion.
+
+The mixing proportions satisfy $\pi_k\geq0$ and $\sum_{k=1}^{K}\pi_k=1$. The marginal mean is $E(Y)=\sum_{k=1}^{K}\pi_k\lambda_k$, and the marginal variance is
+\[
+\operatorname{Var}(Y)=\sum_{k=1}^{K}\pi_k\lambda_k+\sum_{k=1}^{K}\pi_k(\lambda_k-\bar{\lambda})^2,
+\]
+where $\bar{\lambda}=\sum_{k=1}^{K}\pi_k\lambda_k$. The second term represents additional variation arising from differences between the latent components. Thus, a Poisson mixture can produce over-dispersion even though each individual component is Poisson.
+
+\subsection{Nonparametric Maximum Likelihood Estimation}
+
+NPMLE was used to explore the underlying mixing distribution without fixing the number of mixture components in advance. The mixing distribution was estimated using the CAMAN package in R.
+
+The NPMLE analysis was used as an exploratory step rather than as the sole criterion for selecting the final finite mixture model. The estimated gradient function was examined to identify regions of the parameter space that could correspond to support points of the mixing distribution.
+
+The NPMLE procedure was implemented using the VEM algorithm followed by EM refinement. The analysis used 50,000 maximum iterations, a convergence accuracy of $10^{-7}$, and an initial support size of 25.
+
+\subsection{Expectation-Maximization Algorithm}
+
+Finite mixture models contain an unobserved component-membership variable. Let $Z_i$ denote the latent component for patient $i$. The EM algorithm alternates between an expectation step and a maximization step.
+
+In the expectation step, the posterior probability that observation $i$ belongs to component $k$ is
+\[
+\tau_{ik}=P(Z_i=k\mid Y_i)=\frac{\pi_k f_k(Y_i)}{\sum_{j=1}^{K}\pi_j f_j(Y_i)},
+\]
+where $f_k(Y_i)$ denotes the Poisson probability under component $k$.
+
+In the maximization step, the model parameters are updated using the posterior probabilities from the expectation step. The two steps are repeated until convergence. The EM framework provides both parameter estimates and posterior component probabilities, which are subsequently used for patient classification.
+
+\subsection{Model Estimation and Component Selection}
+
+Poisson mixture models containing two, three, four, and five components were fitted. A single-component Poisson model was retained as the reference model.
+
+The models were compared using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC). The AIC is defined as
+\[
+\operatorname{AIC}=-2\ell(\widehat{\theta})+2p,
+\]
+where $\ell(\widehat{\theta})$ is the maximized log-likelihood and $p$ is the number of estimated parameters. The BIC is defined as
+\[
+\operatorname{BIC}=-2\ell(\widehat{\theta})+p\log(n),
+\]
+where $n$ is the sample size. For both criteria, smaller values indicate a preferred model.
+
+Because different information criteria can select different numbers of components, model selection was considered together with the NPMLE results, estimated component parameters, model diagnostics, and interpretability of the resulting latent groups.
+
+\subsection{Posterior Classification}
+
+After fitting the three-component model, each patient was assigned to the component with the largest posterior probability,
+\[
+\widehat{Z}_i=\arg\max_k\tau_{ik}.
+\]
+This classification was used to visualize the distribution of patients across the estimated latent headache-frequency groups. The classification was treated as a probabilistic model-based assignment rather than as a definitive clinical diagnosis.
+
+\subsection{Age-Adjusted Mixture Model}
+
+Age was subsequently included as a covariate in the three-component Poisson mixture model. For component $k$, the Poisson mean was modelled using a log link,
+\[
+\log(\lambda_{ik})=\beta_{0k}+\beta_{1k}\operatorname{Age}_i.
+\]
+Equivalently, $\lambda_{ik}=\exp(\beta_{0k}+\beta_{1k}\operatorname{Age}_i)$. The coefficient $\beta_{1k}$ represents the association between age and the expected headache frequency within component $k$ on the logarithmic scale.
+
+The statistical significance of the age effect was assessed using the parameter estimates and corresponding standard errors and $p$-values from the fitted SAS model.
+
+\subsection{Software and Reproducibility}
+
+All data preparation and statistical analyses were performed using reproducible scripts. R was used for data preparation, descriptive analysis, NPMLE estimation, gradient-function analysis, finite mixture modelling, posterior classification, and graphical output. SAS Studio was used independently to import and inspect the data, perform descriptive analysis, fit Poisson and finite mixture models, compare candidate models, and evaluate the final three-component model including age.
+
+The R and SAS analyses were maintained as separate scripts so that the principal findings could be compared across software implementations.
