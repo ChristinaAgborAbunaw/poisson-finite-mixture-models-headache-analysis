@@ -1,0 +1,65 @@
+%=========================================
+% Section 2: Data and Exploratory Analysis
+%=========================================
+\section{Data and Exploratory Analysis}
+\label{sec:data}
+\subsection{Study Data}
+The data used in this analysis were obtained from a randomized clinical trial comparing acupuncture and placebo treatments for chronic headache \citep{Vickers2004}. The dataset contains 401 patients.
+
+The primary outcome is the number of headache days recorded during the four-week baseline period. Patient age at baseline was also available and was considered as a covariate in the subsequent mixture analysis.
+
+The purpose of the exploratory analysis was to examine the structure of the data before fitting the statistical models, with particular attention to the distribution and variability of headache frequency.
+
+\subsection{Variables}
+Two variables were used in the analysis.
+\begin{table}[H]
+\centering
+\caption{Variables included in the analysis}
+\label{tab:variables}
+\begin{tabular}{lll}
+\toprule
+\textbf{Variable} & \textbf{Type} & \textbf{Description} \\
+\midrule
+Frequency & Count & Number of headache days during the four-week baseline period \\
+Age & Continuous & Patient age at baseline \\
+\bottomrule
+\end{tabular}
+\end{table}
+\textit{Frequency} is the response variable used in the Poisson models. Since it represents a number of headache days, it is treated as a count outcome. Age is included later as a covariate in the three-component mixture model.
+
+\subsection{Data Preparation}
+The original headache-frequency variable contained five non-integer observations. Since the Poisson distribution is defined for integer-valued counts, these observations were rounded to the nearest whole number before the statistical models were fitted.
+
+The data were checked for missing values, variable types, and plausible ranges before analysis. The final cleaned dataset was then used consistently in both the R and SAS analyses.
+
+The individual non-integer observations and the details of the data cleaning procedure are reported in the Results section.
+
+\subsection{Descriptive Analysis}
+The distribution of baseline headache frequency was examined using summary statistics, a frequency distribution, and graphical diagnostics. Measures of central tendency and variability were used to describe the overall level of headache frequency, while the histogram was used to examine the shape of the observed distribution.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{HistPlot.png}
+\caption{Distribution of headache days at baseline. The bars show the empirical distribution and the curve represents the fitted Poisson density based on the sample mean.}
+\label{fig:histogram}
+\end{figure}
+
+The distribution shows considerable variation in the number of headache days between patients. In particular, the observations are not concentrated around a single narrow range, and a relatively high frequency is observed near the upper boundary of 28 headache days.
+
+These features suggest that a single Poisson distribution may not fully describe the observed data.
+
+\subsection{Initial Assessment of Poisson Assumptions}
+The Poisson model assumes that the mean and variance of the outcome are equal. Therefore, comparing the observed mean and variance provides an initial assessment of whether a standard Poisson model is appropriate.
+
+The exploratory analysis showed that the variance of headache frequency was substantially larger than its mean. This indicates over-dispersion and suggests that patients may differ in their underlying headache-frequency rates.
+
+Rather than treating this excess variation only as a violation of the Poisson assumption, the analysis considers whether it may reflect latent heterogeneity within the patient population. A finite mixture of Poisson distributions provides a natural framework for examining this possibility.
+
+The formal dispersion results and subsequent model estimates are presented in the Results section.
+
+\subsection{Exploratory Modelling Strategy}
+The exploratory findings guided the subsequent modelling strategy. A single-component Poisson model was first used as a reference. Finite mixture models were then considered to determine whether the observed heterogeneity could be represented by several latent headache-frequency groups.
+
+NPMLE was used as an exploratory tool to examine the underlying mixing distribution before selecting a finite number of components. The final mixture models were then compared using information criteria and model diagnostics.
+
+This approach allowed the analysis to move from a description of the observed data to an assessment of whether latent heterogeneity could provide a better representation of headache frequency.
