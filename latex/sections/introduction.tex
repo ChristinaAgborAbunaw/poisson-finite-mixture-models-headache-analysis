@@ -1,0 +1,184 @@
+%=========================================
+% Introduction
+%=========================================
+
+\section{Introduction}
+
+\subsection{Background}
+
+Headache disorders are common health conditions that can substantially affect
+quality of life, daily functioning, and healthcare utilization. In clinical
+studies, headache burden is often measured using count outcomes, such as the
+number of days on which a patient experiences a headache during a specified
+observation period.
+
+The Poisson distribution is commonly used to model count outcomes because it
+provides a natural probabilistic framework for the occurrence of events. A
+conventional Poisson model, however, assumes that the conditional mean and
+variance of the outcome are equal. This assumption may be inappropriate when
+patients differ substantially in their underlying susceptibility to headaches.
+
+When observations arise from a population containing individuals with
+different underlying headache frequencies, the resulting data may exhibit
+latent heterogeneity. One consequence of such heterogeneity can be
+over-dispersion, whereby the observed variance exceeds the mean. Ignoring
+this structure and applying a single-population Poisson model may therefore
+result in an inadequate representation of the observed count distribution.
+
+Finite mixture models provide a flexible framework for modelling such latent
+heterogeneity. Rather than assuming that all observations arise from a single
+population, a finite mixture model assumes that the population consists of a
+finite number of unobserved subpopulations, or mixture components. A Poisson
+finite mixture model (PFMM) allows each component to have its own Poisson rate
+while simultaneously estimating the proportion of individuals belonging to
+each latent component.
+
+This study applies Poisson finite mixture modelling to headache frequency data
+from a randomized clinical trial. The analysis considers the distribution of
+headache frequency, evaluates evidence of over-dispersion, estimates Poisson
+finite mixture models, and identifies an appropriate number of latent
+components. Nonparametric maximum likelihood estimation (NPMLE) and the
+expectation-maximization (EM) algorithm are used in the estimation process,
+while posterior probabilities are used to classify patients into the
+identified latent subpopulations.
+
+Patient age is additionally considered as a covariate to investigate whether
+an observed patient characteristic can explain differences in headache
+frequency across the latent mixture components. The analysis is implemented
+using both R and SAS, providing a reproducible computational framework for
+the statistical investigation.
+
+\subsection{Problem Statement}
+
+Headache frequency may vary considerably between patients, even when the
+patients are enrolled in the same clinical study. Such variation may reflect
+underlying differences in susceptibility to headaches and may result in a
+population that is not adequately described by a single probability
+distribution.
+
+A standard Poisson model assumes that all observations arise from one
+population with a common underlying event rate, subject to the model's
+covariate structure. When the population contains unobserved subgroups with
+different event rates, this assumption may be violated and the resulting data
+may exhibit over-dispersion.
+
+The statistical problem addressed in this study is therefore to determine
+whether the observed heterogeneity in headache frequency can be represented
+by a finite mixture of Poisson distributions and to identify the number of
+latent components that provides an appropriate representation of the data.
+
+A related objective is to investigate whether patient age helps explain the
+differences in headache frequency associated with the identified mixture
+components. This provides an opportunity to distinguish heterogeneity that
+can be explained by an observed covariate from heterogeneity that may remain
+unexplained by the available data.
+
+\subsection{Research Objectives}
+
+\subsubsection{General Objective}
+
+The general objective of this study is to investigate latent heterogeneity in
+headache frequency using Poisson finite mixture models and to evaluate their
+ability to represent over-dispersed count data.
+
+\subsubsection{Specific Objectives}
+
+The specific objectives are to:
+
+\begin{enumerate}[label=\arabic*.]
+    \item Describe the distribution and descriptive characteristics of
+    headache frequency in the study population.
+
+    \item Assess whether the observed headache frequency data exhibit
+    over-dispersion relative to a conventional Poisson model.
+
+    \item Estimate Poisson finite mixture models with different numbers of
+    latent components.
+
+    \item Compare the fitted mixture models and identify an appropriate
+    number of latent subpopulations.
+
+    \item Estimate the parameters of the selected mixture model using
+    nonparametric maximum likelihood estimation and the
+    expectation-maximization algorithm.
+
+    \item Classify patients into the identified latent subpopulations using
+    posterior probabilities.
+
+    \item Investigate whether patient age explains differences in headache
+    frequency across the identified mixture components.
+
+    \item Implement the statistical analysis using both R and SAS.
+\end{enumerate}
+
+\subsection{Research Questions}
+
+The study addresses the following research questions:
+
+\begin{enumerate}[label=\arabic*.]
+    \item What is the distribution of headache frequency among the patients
+    in the study population?
+
+    \item Does the headache frequency data exhibit over-dispersion relative
+    to a single-population Poisson model?
+
+    \item How many latent subpopulations provide an appropriate
+    representation of the observed headache frequency distribution?
+
+    \item What are the estimated Poisson rates and mixing proportions of the
+    selected finite mixture model?
+
+    \item How can patients be classified into the identified latent
+    subpopulations using posterior probabilities?
+
+    \item Does patient age help explain differences in headache frequency
+    across the latent mixture components?
+\end{enumerate}
+
+\subsection{Scope of the Study}
+
+This study focuses on the statistical modelling of headache frequency
+recorded during a four-week baseline period. The primary outcome is the
+number of headache days, treated as a count variable.
+
+The analysis focuses on Poisson-based finite mixture modelling, including
+assessment of over-dispersion, estimation and comparison of mixture models,
+latent subpopulation classification, and the incorporation of patient age as
+a covariate.
+
+The study is concerned with statistical description and inference rather than
+the evaluation of treatment effectiveness. Consequently, the analysis does
+not attempt to establish causal relationships between patient characteristics
+and headache frequency.
+
+The computational analysis is conducted using R and SAS, while \LaTeX{} is
+used to prepare and document the research report.
+
+%============================================================
+\subsection{Structure of the Report}
+%============================================================
+
+The remainder of this report is organized as follows.
+
+Section 2 describes the study data and presents the exploratory and descriptive
+analyses.
+
+Section 3 presents the literature review, covering count-data modelling,
+heterogeneity and finite mixture models, nonparametric maximum likelihood
+estimation, estimation of finite mixture models, and approaches to determining
+the number of components.
+
+Section 4 presents the statistical methodology, including the Poisson
+distribution, assessment of over-dispersion, Poisson finite mixture models,
+nonparametric maximum likelihood estimation, the expectation-maximization
+algorithm, and posterior probability-based classification.
+
+Section 5 presents the model estimation, model comparison, and principal
+statistical results.
+
+Section 6 discusses the findings in relation to the research objectives,
+including the role of patient age and the implications of the identified
+latent heterogeneity.
+
+Section 7 summarizes the main findings and presents the conclusions and
+implications of the study.
