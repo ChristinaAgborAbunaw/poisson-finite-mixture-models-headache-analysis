@@ -1,0 +1,7 @@
+ModelNo,Label,Component,Parameter,Effect,Estimate,StdErr,ZValue,ProbZ
+1,Poisson,1,Intercept,Intercept,3.0371,0.09181,33.08,<.0001
+1,Poisson,1,Age,Age,0.002208,0.001975,1.12,0.2637
+1,Poisson,2,Intercept,Intercept,3.4186,0.2277,15.01,<.0001
+1,Poisson,2,Age,Age,-0.02414,0.005593,-4.32,<.0001
+1,Poisson,3,Intercept,Intercept,2.4143,0.2037,11.85,<.0001
+1,Poisson,3,Age,Age,0.003479,0.004569,0.76,0.4464
