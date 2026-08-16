@@ -35,14 +35,17 @@ The analysis combines descriptive statistics, assessment of over-dispersion, non
 ```text
 .
 ├── README.md
+├── 01_Data/
+│   ├── data.csv
+│   └── headache_clean.csv
+├── 02_Code/
+│   ├── R/
+│   └── SAS/
+├── 03_Output/
 ├── latex/
 │   ├── main.tex
 │   ├── References.bib
 │   └── sections/
-├── R/
-├── SAS/
-├── data/
-├── figures/
 └── report/
 ```
 
@@ -54,4 +57,4 @@ The completed report is available in the repository as:
 
 ## Reproducibility
 
-The LaTeX source, bibliography, analysis outputs, and supporting material are organized so that the statistical workflow can be reviewed and reproduced from the project files. Patient-level data should only be redistributed where permitted by the applicable data-use conditions.
+The LaTeX source, bibliography, analysis code, outputs, and supporting material are organized so that the statistical workflow can be reviewed and reproduced from the project files. Patient-level data should only be redistributed where permitted by the applicable data-use conditions.
