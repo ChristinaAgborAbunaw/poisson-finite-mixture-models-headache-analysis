@@ -1,0 +1,16 @@
+\begin{center}
+{\Large\bfseries Abstract}
+\end{center}
+
+Headache frequency is a count outcome, but patients may not experience headaches at the same rate. When this type of heterogeneity is present, a standard Poisson model may not provide an adequate description of the data. This study examines the use of Poisson finite mixture models to identify underlying groups of patients with different headache frequencies.
+
+The analysis used data from 401 patients, with the number of headache days during the baseline period as the main outcome and age considered as a covariate. The analysis included data preparation, descriptive statistics, assessment of over-dispersion, Poisson modelling, finite mixture modelling, nonparametric maximum likelihood estimation (NPMLE), and posterior classification. The analyses were carried out in both R and SAS.
+
+The mean headache frequency was 16.18 days, compared with a variance of 44.98, giving a variance-to-mean ratio of 2.78. This indicated substantial over-dispersion and provided a reason to consider a mixture model rather than a single Poisson distribution. The NPMLE gradient analysis also indicated the presence of more than one underlying frequency group. Among the models considered, the three-component model had the lowest AIC, while BIC favored the two-component model. The three-component model was retained for further interpretation because it provided the lowest AIC and produced clearly distinguishable groups. The estimated mean headache frequencies for these groups were 9.61, 13.80, and 22.95 days.
+
+Posterior classification showed that the patients could be separated into low-, moderate-, and high-frequency groups. The component means estimated using CAMAN and FlexMix were also similar, giving comparable results across the two approaches. When age was included in the three-component model, it was significantly associated with headache frequency in one component but not in the other two. Although the mixture model captured the main pattern of heterogeneity, it underestimated the number of patients reporting 28 headache days.
+
+The results suggest that Poisson finite mixture models can provide a useful way of describing heterogeneous headache-frequency data when the assumptions of a standard Poisson model are not met. They also show the value of combining model diagnostics, mixture modelling, and posterior classification when studying variation in count outcomes.
+
+\bigskip
+\noindent\textbf{Keywords:} Poisson finite mixture model; headache frequency; over-dispersion; latent groups; NPMLE; posterior classification; R; SAS
