@@ -1,438 +1,70 @@
-\documentclass[a4paper, 12pt]{article}
-
-%___________________ Packages _______
-
-\usepackage{geometry}
-%\usepackage[margin=1in]{geometry}
-\usepackage{subcaption}
-\usepackage{color}
-\usepackage{float}  
-\usepackage{graphicx}
-\usepackage{booktabs}
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-\usepackage{amsmath}
+\documentclass[a4paper,12pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
 \usepackage{setspace}
-\usepackage{verbatim}
-\usepackage{changepage}
-\usepackage{multirow}
-\usepackage{multicol}
-\usepackage{arydshln}
-\usepackage{tocloft}
-\usepackage{xcolor,colortbl}
-\usepackage{footnote}
-\usepackage{bm}
-\usepackage{listings}
-\usepackage{enumerate}
-\usepackage{longtable}
-\usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\usepackage{natbib}
-
-
-%________________ Page Style _______
-
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[numbers]{natbib}
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\usepackage[hidelinks]{hyperref}
+\onehalfspacing
 \pagestyle{fancy}
 \fancyhf{}
-
-\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
-
-% Define code style
-\lstset{
-    basicstyle=\ttfamily\small,
-    backgroundcolor=\color{white},
-    breaklines=true,
-    commentstyle=\color{gray},
-    keywordstyle=\color{blue},
-    numberstyle=\tiny\color{gray},
-    numbers=left,
-    frame=tb,
-    framerule=0.5pt,
-    rulecolor=\color{black},
-    showstringspaces=false,
-    tabsize=2,
-}
-
-
-
-%_______________ Title Page __________
-
-
-\title{
-    \vspace{2cm}
-    \textbf{\LARGE Modeling Headache Frequency Distribution and Age-Related Clustering:} \\
-    \vspace{0.5cm}
-    \textbf{\LARGE A Finite Mixture Approach}
-    \vspace{7cm}
-}
-
-
-\author{Christina Agbor Abunaw}
-\date{August 2023}
-
+\rhead{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14.5pt}
 \begin{document}
-
-\maketitle
-\newpage
-
-%_____________ Abstract _________
-\begin{abstract}
-    \noindent\textbf{Introduction:} The abstract provides an overview of the study focusing on the distribution of headache frequency data in a randomized acupuncture vs. placebo trial for severe headaches.
-    
-    \noindent\textbf{Objective:} This study aims to analyze the headache frequency data using a finite mixture model, and to explore potential clusters in the data while considering the patients' age as a covariate.
-    
-    \noindent\textbf{Methodology:} The analysis involves fitting a mixture distribution to the data and investigating relationships between identified clusters and patients' age. This approach offers insights into headache patterns and their potential associations.
-    
-    \noindent\textbf{Results:} The application of the mixture model reveals distinct components in the data, shedding light on different headache frequency clusters. An association between age and clusters is observed, though other factors also contribute to cluster presence.
-    
-    \noindent\textbf{Conclusion:} The study demonstrates the utility of finite mixture models in understanding headache frequency patterns. Age plays a role in cluster formation, but additional factors should be considered to fully explain cluster presence. This approach contributes to a comprehensive understanding of headache treatment strategies.
-\end{abstract}
-
-
-\newpage
-
-% ________________  table of Contents __________
-\tableofcontents
-\thispagestyle{empty}
-\newpage
-
-
-%___________________  Introduction  _______
-\section{Introduction}
-    \subsection{Background}
-Headaches have long been classified into two categories: primary and secondary headaches. Primary headaches originate independently, often without an underlying medical condition, while secondary headaches result from various underlying causes such as brain tumors or dental issues \citep{nyacuhealth}. Notably, acupuncture, a traditional medical practice originating from China, has demonstrated effectiveness in treating primary headaches, including migraine and tension headaches \citep{nyacuhealth}. This alternative form of medicine involves the insertion of thin needles into specific points on the body to alleviate pain and discomfort. Acupuncture stands as a cornerstone of traditional Chinese medicine (TCM) \citep{vickers2004}, offering a holistic approach to addressing various health concerns.
-
-In this context, this study delves into the efficacy of acupuncture as a treatment for severe headaches, specifically investigating its impact on the frequency and duration of headache episodes. By comparing the outcomes of acupuncture treatment with those of a placebo, this research aims to shed light on the potential benefits of acupuncture in alleviating the burden of primary headaches. The study's primary objective is to examine the distribution of response, which is defined by the number of days patients experience headaches before being randomized into either the placebo or acupuncture group. Through rigorous analysis and statistical modeling, this investigation seeks to contribute valuable insights into the realm of headache management and complementary therapies.
-
-    \subsection{Problem Statement}
-The study aims to address the distribution of headache frequency data in a randomized clinical trial comparing acupuncture with a placebo for the treatment of severe headaches. The key question revolves around understanding the patterns of headache occurrences in patients before they were randomly allocated to either the acupuncture or placebo group. This investigation seeks to uncover potential clusters within the headache data, explore their relationship with patients' ages, and determine whether age alone can fully explain the presence of these clusters. In essence, the study delves into the factors influencing headache frequency, cluster formation, and their connections to patient characteristics, particularly age.
-
-    \subsection{Research Objectives}
-The research objectives of this study are as follows:
-
-\textbf{1. Distribution Analysis:} To examine the distribution of headache frequency data recorded during a four-week baseline period before patients were randomly assigned to the acupuncture or placebo group.
-
-\textbf{2. Cluster Exploration:} To apply finite mixture modelling techniques to identify potential clusters within the headache frequency data, thereby uncovering distinct patterns and groups among the patients.
-
-\textbf{3. Age Relationship:} To investigate the potential relationship between the identified clusters and the age of the subjects, determining whether certain age groups are associated with specific headache frequency clusters.
-
-\textbf{4. Comprehensive Explanation:} To determine whether age alone can fully explain the presence of the identified clusters in the headache frequency data or whether additional factors need to be considered to provide a comprehensive explanation.
-
-By pursuing these research objectives, the study aims to enhance our understanding of headache patterns, their potential associations with patient age, and the complex factors contributing to cluster presence within the data set.
-
-    \subsection{Scope of Research}
-The scope of this research encompasses the analysis of headache frequency data collected from a randomized clinical trial comparing acupuncture with a placebo for treating severe headaches. The research will focus on the following aspects:
-
-\textbf{1. Data Analysis:} The primary focus will be on analyzing the headache frequency data, including descriptive statistics, distributional characteristics, and potential clusters using finite mixture modeling techniques.
-
-\textbf{2. Cluster Identification:} The study will explore the identification and interpretation of potential clusters within the headache frequency data to understand distinct patterns of headache occurrences.
-
-\textbf{3. Age Analysis:} A significant part of the research will involve investigating the relationship between the identified headache frequency clusters and the age of the patients. This analysis aims to determine whether specific age groups are linked to certain headache patterns.
-
-\textbf{4. Covariate Exploration:} While the main emphasis is on age, the study will also briefly consider whether other covariates might play a role in explaining the presence of headache frequency clusters.
-
-\textbf{5. Statistical Techniques:} The research will employ advanced statistical techniques, including Poisson finite mixture modeling, non-parametric maximum likelihood estimation, and classification based on posterior probabilities.
-
-\textbf{6. Statistical Software:} The analysis will be conducted using SAS and R statistical software, ensuring a robust and comprehensive exploration of the data.
-
-However, the study's scope is limited to the specific data set provided and its analysis. It does not extend to a broader evaluation of other potential covariates or external validation of the findings beyond the data at hand.
-
-
-%____________________  Data Description  _________________
-\section{Data Description}
-The dataset comprises information concerning 401 subjects, detailing their age and frequency of experiencing headaches over a four-week span during baseline. The study employed a randomized design, aiming to compare the efficacy of acupuncture against a placebo (an inert pill) for treating severe headaches. A concise overview of the variables under scrutiny is provided in Table 1.
-
-
+\begin{titlepage}
 \begin{center}
-\begin{table}[H]
-\begin{tabular}{ |c|c|} 
- \hline
-\textbf{Variables} & \textbf{Description} \\
-\hline
-Frequency : Outcome  & Number of days with headache during a four-week recording period at baseline  \\ 
-\hline
- Age : Predictor & Age of patient at baseline \\ 
- \hline 
-\end{tabular}
-\caption{ \textbf{Description of Dataset}}
-\end{table}
+\vspace*{2.5cm}
+{\LARGE\bfseries Modeling Heterogeneous Headache Frequency\\[0.2cm] Using Poisson Finite Mixture Models:}
+\vspace{0.5cm}
+{\Large An Application in R and SAS}
+\vfill
+{\Large\bfseries Christina Agbor Abunaw}
+\vspace{1.5cm}
+{\large Master of Statistics (Biostatistics)}
+\vspace{0.3cm}
+{\large Transnational University Limburg (UHasselt), Belgium}
+\vfill
 \end{center}
-
-This dataset's core elements, frequency (representing the count of headache days) and age, serve as fundamental components in assessing the impact of acupuncture versus a placebo on severe headache management. The randomized study structure ensures a robust framework for comparing these treatments in a controlled and systematic manner.
-
-
-%____________   Research Methodology  ____________
-\section{ Research Methodology}
-
-
- \subsection{Data Exploration and Preprocessing}
-The initial phase of the analysis involved thorough data exploration and preprocessing. Graphical explorations, including histogram plots, were employed to gain insights into the distribution of the response variable, which represents the number of days patients suffered from headaches before their randomization into the placebo or acupuncture groups. The histogram plot hinted at a potential multimodal distribution, indicating that a normal distribution might not be suitable for explaining the outcome. Descriptive statistics, such as mean and variance, were computed to understand the characteristics of the data.
-
-\subsection{ Distribution Modeling}
-Given the nature of the response variable as count data, a Poisson distribution emerged as a natural choice for modeling \cite{molenberghs2017}. However, initial analysis revealed a discrepancy between the mean and variance of the data, which violates the assumptions of a traditional Poisson distribution \cite{molenberghs2017}. This discrepancy pointed towards the presence of over-dispersion, where the variability exceeded what would be expected from a single Poisson distribution.
-
-To address the complex distributional characteristics and over-dispersion, a more sophisticated approach was adopted. Finite mixture models (FMMs) were employed to capture unobserved heterogeneity within the data. FMMs assume that the observed data belong to unobserved subpopulations or clusters, each with its own probability distribution. In this case, a Poisson finite mixture model was chosen due to its ability to model count data exhibiting over-dispersion and multimodal behavior \cite{molenberghs2017}.
-
-\subsection{Poisson Finite Mixture Model}
-The Poisson finite mixture model was used to accommodate the presence of multiple components within the data distribution. The model allowed for the specification of multiple latent Poisson distributions, each characterized by its own mean ($\lambda$) and mixing proportion $(\pi)$ \cite{molenberghs2017}. The underlying assumption was that the data points were generated by a mixture of these latent distributions \cite{molenberghs2017}. The Poisson mixture model is mathematically defined as:\\
- \begin{eqnarray*}
-	 Y|\lambda  \sim  Poisson(\lambda)   {~~~~~~~~~~~}  \lambda \sim \left(\begin{array}{cccc|cc} \lambda_1 &\lambda_2 & \lambda_3\\
-	 \pi_1 &\pi_2&\pi_3\\
-	 \end{array}\right)\\ \\ \\
-     E(Y)=E(\lambda)=\sum_j \pi_j\lambda_j\\ \\ \\
-     var(Y)=var(\lambda)+E(\lambda)=\sum_j \pi_j\lambda_j^2 -(\sum_j \pi_j\lambda_j)^2 +\sum_j \pi_j\lambda_j
-	 \end{eqnarray*} 
-
-The crucial task of estimating the optimal number of latent components (support points) was undertaken using nonparametric maximum likelihood estimation (NPMLE). The estimation occurred in two phases: an initial approximation of support points through the vertex exchange method (VEM) algorithm and the iterative expectation-maximization (EM) algorithm to refine the estimates\cite{molenberghs2017}.
-
-To assess the model's fit, a gradient function was employed.\cite{molenberghs2017} This function was utilized to determine if the estimated support points were truly NPMLE, ensuring the model's accuracy in capturing the data's distributional complexities.
-
-\subsection{ Classification and Covariate Analysis}
-Following the successful fitting of the Poisson finite mixture model, the next step involved classifying observations into the different components of the mixture. This classification was achieved by calculating posterior probabilities, which indicated the likelihood of each observation belonging to a specific component. The posterior probability for observation i belonging to component j is given by:
-
-   $$\frac{\pi_jf_{ij}(y_i)}{\sum_j\pi_jf_{ij}(y_i)}$$ 
-   
-where $\pi{ij}$ expresses how likely the ith subject is to belong to component j, taking into account the observed response value $y_i$ for that observation. $f_{ij}$ are the density functions of $Y_i$ in the g components of the mixture. Where g as stated above is assumed to be the support point for the underlying latent variable. \cite{molenberghs2017} 
-
-Furthermore, the study aimed to investigate whether the identified components were related to the age of the patients. To accomplish this, the Poisson mixture model was extended to incorporate the age covariate. The relationship between age and each component was assessed through parameter estimates, enabling insights into whether certain age groups were associated with specific headache patterns.
-
-\subsection{ Software and Significance}
-The entire analysis was conducted using statistical software tools, specifically SAS version 9.4 and R version 3.4.3. A significance level of 5\% was adopted for making statistical decisions throughout the study, ensuring robustness and validity of the findings.
-
-
-%___________________ Results ________________________
-\section{Results}
-
-
-\subsection{ Data Exploration}
-
-Descriptive statistics were computed for the outcome variable, which ranged from 3 to 28 days. The sample mean and sample variance were calculated as 16.18 and 44.98, respectively. This analysis highlighted the presence of over-dispersion in the data.
-
-\subsection{Distribution Modeling}
-
-A histogram plot (Figure 1) was generated to visualize the frequency distribution of observations in the dataset. The histogram revealed a multi-modal distribution, indicating the existence of distinct underlying group structures within the population. This multimodality implied that standard distributions would not be suitable for assessing the number of days patients suffered from headaches at baseline. The relative heights of the modes provided insights into the proportions of the population within those specific patient groups.
-
-\subsection{ Finite Mixture Distribution}
-
-\subsubsection{ Poisson Finite Mixture Model}
-
-Table 2 summarized the results of fitting Poisson mixture models with varying numbers of components (g) from 1 to 5. The log-likelihood values for models 3 to 5 were identical, indicating that beyond a 3-component mixture model, no significant improvement in the likelihood was achieved. This suggested that a 3-component mixture model adequately captured the data's complexities.
-
-The chosen 3-component Poisson mixture model was characterized by the following parameters ($\lambda$ and $\pi$) based on C.A.MAN results:
-- Component 1: $\lambda = 9.140941$, $\pi = 0.1912741$
-- Component 2: $\lambda = 13.333668$, $\pi = 0.4266903$
-- Component 3: $\lambda = 22.895158$, $\pi = 0.3820357$
-
-Notably, the estimated mean and variance from the model closely resembled the observed mean and variance, indicating a successful account for the over-dispersion in the data.
-
-Additionally, the gradient function plot (Figure 2) was used to validate the estimated support points' accuracy. The plot indicated that the gradient function for all support points remained below 1 in any direction of the latent variable $\lambda$ and was equal to 1 within the data's range. This confirmed the appropriateness of the estimated support points as NPMLE.
-
-\subsection{ Classification of Observations}
-
-The classification of observations into the different components was detailed in Table 3. It was observed that the majority of patients were categorized into the second component, indicating its prominence within the dataset. The proportions of components 1 and 3 were in close agreement with their estimated component probabilities. However, the proportion for component 2 slightly exceeded its corresponding estimated component probability.
-
-\subsection{ Relationship of Covariates to Components}
-
-The relationship between age (ranging from 18 to 65 years) and the three-component mixture model was explored in Table 4. Each component was characterized by an intercept and age effect. Components 1 and 3 displayed insignificantly low age effects, suggesting no substantial relationship between age and these components. Notably, component 2 exhibited a highly significant negative age effect, indicating that age did not fully account for the clustering observed in this component.
-
-## Summary
-
-The comprehensive analysis encompassed data exploration, distribution modeling using a Poisson finite mixture model, classification of observations into components, and investigation of the relationship between age and components. The findings indicated the presence of a multi-modal distribution, suggesting underlying group structures. The selected 3-component Poisson mixture model successfully captured the data's complexities and over-dispersion. Age had differing effects across components, demonstrating its limited explanatory power for clustering in one component. Overall, these results provided a nuanced understanding of the distribution of days patients suffered from headaches and shed light on the interplay between age and the observed patterns.
-
-
-
-
-%_________________  Discussion  _________________
-\section{Discussion}
-The focal point of this study was the total number of days patients experienced headaches before being assigned to either acupuncture or placebo groups. Given that this outcome variable is a count, the Poisson distribution was a natural choice for modeling. However, the standard Poisson model assumes equal mean and variance, which wasn't met due to a notably larger variance than the mean. Consequently, the Poisson finite mixture model emerged as the most suitable approach to address both the multi-modality of the distribution and the over-dispersion present.
-
-The results derived from the Poisson finite mixture model, employing the non-parametric maximum likelihood method, revealed the existence of three distinct components within the data. To ensure the validity of the estimated support points, the gradient function was utilized, affirming their status as NPMLE. The posterior probabilities assigned patients to components based on their highest likelihood, thereby classifying them into the corresponding groups. Moreover, by applying a Poisson model, the relationship between the distribution components and the covariate age was explored.
-
-%_____________________ Conclusion  _______________
-\section{Conclusion}
-The findings from the Poisson model disclosed an insignificant association between age and components 1, as well as between age and components 3. On the contrary, for component 2, a significant negative relationship was uncovered. This signifies that age alone does not sufficiently elucidate the underlying clustering present within component 2. Consequently, the results presented valuable insights into the intricate interplay between age and the distinct components identified within the distribution.
-
-Overall, this study successfully demonstrated the applicability of the Poisson finite mixture model to handle complex count data scenarios involving multi-modality and over-dispersion. The investigation into the relationship with age enhanced our comprehension of the distribution's underlying mechanisms. This work holds significance for both healthcare practitioners and researchers seeking a comprehensive understanding of factors influencing severe headaches and their potential treatments.
-\newpage
-
-\section{References}
-\bibliographystyle{plain}
+\thispagestyle{empty}
+\end{titlepage}
+\pagenumbering{roman}
+\input{sections/abstract}
+\clearpage
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+\input{sections/introduction}
+\clearpage
+\input{sections/data_analysis}
+\clearpage
+\input{sections/literature_review}
+\clearpage
+\input{sections/methodology}
+\clearpage
+\input{sections/results}
+\clearpage
+\input{sections/discussion}
+\clearpage
+\input{sections/conclusion}
+\clearpage
+\bibliographystyle{plainnat}
 \bibliography{References}
-% 1) \cite{molenberghs2017}
-% 2) \cite{nyacuhealth}
-% 3) \cite{vickers2004}
-\newpage
-%_________________ R Codes ____________
-
-\section{Appendix}
-\subsection{R Codes}
-
-\begin{verbatim}
-**____ Working Directory and Packages Used____ **
-
-setwd("D:\\2017_2018\\Advance modelling technique\\homeworks\\finite mixture ")
-
-library(CAMAN)
-library(ggplot2)
-
-**___ Accessing DATA ___**
-
-data=read.table("data.csv",header = T,sep=",")
-
-**___ Preparing DATA ___**
-
-attach(data)
-head(data)
-
-        # Rounded-up decimal values
-
-data[ ,"frequency"] = round(data[ ,"frequency"])
-str(data)
-data
-
-
-**___ EXPLORATORY DATA ANALYSIS ___**
-
-summary(frequency)
-mean(frequency)#16.18042
-var(frequency)#44.93918
-
-hist_1<-hist(frequency,breaks=25 ,freq= F,ylim= c(0,0.098),xlim = c(2,30),
-             col="light green", xlab="Total number of days with Headache at Baseline", 
-             main="Histogram of days with Headache at Baseline")
-    lines(density(frequency),lty =1,col="red", lwd=2)
-    legend(10,0.11,c("Empirical Distribution","Poisson Density"),
-       bty = "n",cex=0.8,lty=c(1,2),col=c("light green","red"),lwd=c(4,4))
-
-
-**___ The Nonparametric Mixture Model Approach-NPMLE ___**
-
-    ### Phase 1
-
-m<-mixalg.VEM(obs="frequency",
-                 acc=10^-7 ,numiter =5000,
-                 family="poisson", data=data,startk=20)
-                                                    m #ll=-1306.584
-
-
-    ### phase 2
-
-m1<-mixalg.EM(obs="frequency",
-              data=data,family="poisson",
-              p=c(0.03292772 ),
-              t=c(8.263158))
-                                         summary(m1)#ll=-1476.032
-
-m2<-mixalg.EM(obs="frequency",
-              data=data,family="poisson",
-              p=c(0.03292772,0.17508815),
-              t=c(8.263158,9.578947))
-                                        summary(m2)#ll=-1309.056
-
-m3<-mixalg.EM(obs="frequency",
-              data=data,family="poisson",
-              p=c(0.03292772,0.17508815,0.05052840),
-              t=c(8.263158,9.578947,12.210526))
-                                        summary(m3)#ll=-1306.518
-
-m4<-mixalg.EM(obs="frequency",
-              data=data,family="poisson",
-              p=c(0.03292772,0.17508815,0.05052840,0.35414230),
-              t=c(8.263158,9.578947,12.210526,13.526316))
-                                        summary(m4)#ll=-1306.518
-
-m5<-mixalg.EM(obs="frequency",
-                  data=data,family="poisson",
-                  p=c(0.03292772,0.17508815,0.05052840,0.35414230,0.38731343),
-                  t=c(8.263158,9.578947,12.210526,13.526316,22.736842))
-                                summary(m5)#ll=-1306.518 
-
-    ### phase 1 and 2
-
-m12 <- mixalg(obs="frequency",
-               family="poisson",
-               data=data, numiter=50000,
-               acc=10^-7,startk=25)
-                            summary(m12)#ll-1306.518
-
-
-**___ GRADIENT FUNCTION ___**
-
-plot(m@totalgrid[,2],m@totalgrid[,3],lwd=3,
-     type="l",xlab="lambda",ylab="Gradient",
-     main="Gradient Function For The Acupuncture Data",col=" green")
-    abline(h=1,col="red")
-
-
-**___ CLASSIFICATION ___**
-
-    ### investigation of clustering
-cl=round(cbind(data,m12@prob,m12@classification),digits = 4)
-attach(cl)
-
-    ### sort
-class <- cl[order(m12@classification),] 
-View(class)
-
-counts<-data.frame(table(m12@classification ))
-counts
-
-
-**___ RELATING COMPONENTS TO COVARIATES ___**
-
-fit<- mixcov(dep="frequency",fixed=c("age"),random=c(""),
-            data=data,k=3,family="poisson",maxiter =50,acc=10^-7)
-            summary(fit)
-
-
-    #### FITTED MEAN AND VARIANCE
-lamnda=c(9.141379, 13.333579, 22.895214)
-pi=c(0.1912815,0.4266865,0.3820320)
-pl=lamnda*pi
-mean_fmm=sum(pl)#16.18454
-var_fmm=sum(lamnda*lamnda*pi)-(mean_fmm*mean_fmm)+mean_fmm
-                # 46.34547
-
-
-
-
-
-\end{verbatim}
-\newpage
-
-%_________________ SAS Codes ____________
-
-\subsection{SAS Codes }
-
-
-\begin{verbatim}
-                               
-libname fin_mix "D:\2017_2018\Advance modelling
-technique\homeworks\finite mixture";
-
-data new;
-    set fin_mix.acuamt;
-run;
-
-proc print data=new;
-run;
-
-proc CONTENTS data=new ;
-run;
-
-proc freq data=new;
-    tables age*frequency;
-run;
-
-**___ Relationship: age vs frequency ___**
-
-proc fmm data=new;
-    model FREQUENCY= age/dist=POISSON k=3;
-run;
-\end{verbatim}
-
-
-
-
-
 \end{document}
