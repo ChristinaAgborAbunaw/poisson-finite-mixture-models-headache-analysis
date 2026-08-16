@@ -1,0 +1,285 @@
+%============================================================
+% DISCUSSION
+%============================================================
+
+\section{Discussion}
+\label{sec:discussion}
+
+The aim of this study was to investigate heterogeneity in baseline
+headache frequency and to assess whether a Poisson finite mixture
+model could provide a more informative representation of the patient
+population than a single Poisson distribution. The analysis provided
+evidence of substantial variation in headache frequency and supported
+the presence of more than one underlying frequency level among the
+patients.
+
+%============================================================
+\subsection{Heterogeneity in Headache Frequency}
+%============================================================
+
+The initial descriptive analysis showed considerable variability in
+the number of headache days reported by patients. The variance of
+44.98 was substantially larger than the mean of 16.18, giving a
+variance-to-mean ratio of 2.78. This is inconsistent with the
+equidispersion property of a standard Poisson distribution.
+
+The over-dispersion observed in these data may reflect differences
+between patients in their underlying susceptibility to headaches.
+Rather than treating the additional variation only as a statistical
+problem, the finite mixture approach allowed the analysis to
+investigate whether the population could be represented by several
+latent groups with different headache-frequency rates.
+
+This interpretation is consistent with the purpose of finite mixture
+models, which allow an observed population to be represented as a
+combination of unobserved subpopulations with different parameter
+values \citep{McLachlanPeel2000}.
+
+%============================================================
+\subsection{Evidence from the NPMLE Analysis}
+%============================================================
+
+The NPMLE analysis provided an exploratory assessment of the
+underlying mixing distribution. The gradient function showed
+departures from a homogeneous one-component distribution and
+suggested that more than one support point may be present.
+
+The NPMLE was particularly useful because it allowed the underlying
+mixing distribution to be explored before fixing the number of
+components in the finite mixture models. This is consistent with the
+role of NPMLE in mixture modelling, where the mixing distribution can
+be estimated without imposing a specific finite number of support
+points in advance \citep{Lindsay1983,Lindsay1983b}.
+
+The gradient analysis should, however, be interpreted as exploratory
+evidence rather than as a definitive test for the exact number of
+components. The final choice of the finite mixture structure was
+therefore based on the fitted models, information criteria, and the
+interpretability of the estimated groups.
+
+%============================================================
+\subsection{Choice of the Number of Components}
+%============================================================
+
+The comparison of the candidate models demonstrated the importance
+of considering both model fit and model complexity. The single
+Poisson model performed substantially worse than the finite mixture
+models, providing strong evidence that a homogeneous Poisson model
+was inadequate for these data.
+
+Among the mixture models, AIC reached its minimum for the
+three-component model, whereas BIC reached its minimum for the
+two-component model. This difference reflects the stronger penalty
+for model complexity imposed by BIC \citep{Akaike1974,Schwarz1978}.
+
+The results therefore do not provide unanimous statistical evidence
+for exactly three components. Nevertheless, the three-component
+model was retained as the principal model for interpretation because
+it provided the lowest AIC and produced three clearly separated and
+interpretable headache-frequency levels.
+
+This decision should be viewed as a modelling choice rather than as
+evidence that the population necessarily contains exactly three
+biologically distinct groups. The latent components are statistical
+representations of heterogeneity in the observed distribution.
+
+%============================================================
+\subsection{Interpretation of the Three Latent Groups}
+%============================================================
+
+The estimated component means from the three-component model were
+9.61, 13.80, and 22.95 headache days. These estimates indicate
+substantial differences in the underlying headache-frequency rates.
+
+The lowest-frequency component represented approximately one quarter
+of the sample, while the intermediate- and high-frequency components
+each represented approximately two-fifths of the population. The
+high-frequency group therefore represented a substantial proportion
+of the patients rather than a small group of extreme observations.
+
+The posterior classification plot also showed a clear separation of
+patients across the three estimated frequency levels. This supports
+the interpretation that the mixture model is capturing meaningful
+heterogeneity in the observed distribution.
+
+However, the latent groups should not be interpreted as fixed
+clinical categories without additional clinical information. They
+are statistical groups defined by differences in the estimated
+headache-frequency distributions.
+
+%============================================================
+\subsection{Agreement Between CAMAN and FlexMix}
+%============================================================
+
+The analysis used two different approaches to investigate the
+mixture structure. CAMAN was used for the NPMLE analysis, while
+FlexMix was used to estimate and classify patients under the
+three-component finite mixture model.
+
+The estimated component means obtained from the two approaches were
+similar, particularly for the highest-frequency component. Although
+the estimated mixing proportions differed to some extent, both
+methods identified a comparable set of low-, intermediate-, and
+high-frequency rates.
+
+This agreement provides additional support for the existence of
+heterogeneity in the headache-frequency distribution. Differences
+between the estimated proportions are not unexpected because the
+methods use different estimation procedures and because mixture
+components are latent rather than directly observed.
+
+It is also important to recognize that component labels are arbitrary
+in finite mixture models. Therefore, Component 1 in one software
+implementation does not necessarily correspond to Component 1 in
+another implementation. Comparisons should instead be based on the
+estimated component parameters and their ordering.
+
+%============================================================
+\subsection{Model Adequacy and the Upper Boundary}
+%============================================================
+
+Although the three-component model captured the major structure of
+the observed distribution, the model diagnostics revealed an
+important limitation. The number of patients reporting the maximum
+observed value of 28 headache days was substantially larger than
+expected under the fitted mixture.
+
+Thirty-eight patients were observed at 28 headache days, compared
+with approximately 6.79 expected under the three-component model.
+The corresponding Pearson residual was 11.98.
+
+This concentration at the upper boundary suggests that the observed
+distribution contains a feature that is not fully represented by the
+ordinary Poisson mixture. One possible explanation is that the
+four-week observation period imposes a natural upper limit of
+28 headache days. Patients who experience headaches throughout the
+entire observation period are therefore concentrated at the boundary
+rather than continuing along an unrestricted count distribution.
+
+This feature is important because the standard Poisson mixture treats
+the count distribution as though its support were not constrained by
+such a maximum. A model that explicitly accounts for a bounded or
+zero/upper-inflated outcome could potentially provide a better
+description of this aspect of the data.
+
+The finding does not invalidate the mixture analysis. Instead, it
+shows that the finite mixture model captures the broad latent
+heterogeneity while leaving a specific boundary feature unexplained.
+
+%============================================================
+\subsection{Effect of Age}
+%============================================================
+
+The age-adjusted three-component model provided evidence that the
+relationship between age and headache frequency was not uniform
+across the latent population.
+
+Age was statistically significant in one of the SAS mixture
+components, with an estimated coefficient of $-0.02414$. On the
+original rate scale, this corresponds to a multiplicative factor of
+approximately $0.976$ for a one-year increase in age. Thus, within
+that component, the expected headache frequency decreased by
+approximately 2.4\% for each additional year of age.
+
+The age effects in the other two components were not statistically
+significant. This suggests that the association between age and
+headache frequency may differ across latent groups rather than
+following a single population-wide effect.
+
+The component-specific nature of this result is important. It should
+not be interpreted as evidence that increasing age generally reduces
+headache frequency among all patients. Rather, the result indicates
+that age was associated with the expected headache rate within one
+particular latent component.
+
+%============================================================
+\subsection{Strengths of the Analysis}
+%============================================================
+
+A major strength of the analysis was the use of several complementary
+methods rather than relying on a single fitted model. The descriptive
+analysis identified over-dispersion, the NPMLE provided an
+exploratory assessment of the mixing distribution, and finite
+mixture models were then compared using information criteria.
+
+The use of both CAMAN and FlexMix also provided an opportunity to
+examine whether similar latent structures could be obtained using
+different estimation approaches. The broadly similar component means
+obtained from the two methods strengthen the interpretation of the
+identified heterogeneity.
+
+The analysis was also implemented in both R and SAS. This provided
+an additional check on the model estimates and allowed the age-
+adjusted mixture model to be examined using SAS.
+
+%============================================================
+\subsection{Limitations}
+%============================================================
+
+Several limitations should be considered when interpreting the
+results.
+
+First, the finite mixture components are latent statistical
+subpopulations and should not automatically be interpreted as
+distinct clinical disease categories. Additional clinical variables
+would be required to establish whether the identified groups
+correspond to meaningful clinical phenotypes.
+
+Second, the AIC and BIC results did not select the same number of
+components. AIC favored three components, whereas BIC favored two.
+The three-component model was therefore selected as the principal
+model for interpretation, but the two-component solution remains a
+plausible alternative.
+
+Third, the model showed substantial lack of fit at the upper
+boundary of 28 headache days. This indicates that the ordinary
+Poisson mixture does not fully account for the bounded nature of the
+outcome.
+
+Finally, the analysis focused primarily on baseline headache
+frequency and age. Other patient characteristics may also contribute
+to the observed heterogeneity and could be considered in future
+models.
+
+%============================================================
+\subsection{Implications for Further Analysis}
+%============================================================
+
+The results suggest several directions for further statistical
+investigation. A model that explicitly accounts for the upper
+boundary of 28 headache days could be considered to address the
+concentration of observations at the maximum value.
+
+Additional covariates could also be incorporated into the mixture
+model to determine whether demographic or clinical characteristics
+help explain membership in the latent frequency groups.
+
+Future work could further compare alternative count distributions and
+mixture specifications using both statistical fit and substantive
+interpretability. Such analyses would help determine whether the
+three-component Poisson mixture provides the most useful description
+of the underlying patient heterogeneity or whether a more flexible
+model is warranted.
+
+%============================================================
+\subsection{Overall Interpretation}
+%============================================================
+
+Taken together, the findings indicate that baseline headache
+frequency was heterogeneous across the study population and that a
+single Poisson distribution was insufficient to describe the
+observed variation.
+
+The finite mixture analysis provided evidence for several underlying
+headache-frequency levels, with the three-component model identifying
+low-, intermediate-, and high-frequency groups. Although the
+three-component model was not preferred by every information
+criterion, it provided the lowest AIC and produced an interpretable
+latent structure.
+
+At the same time, the substantial lack of fit at 28 headache days
+shows that the mixture model does not explain every feature of the
+observed distribution. The findings therefore support the use of
+finite mixture modelling as a useful representation of heterogeneity
+in these data, while also indicating areas where a more specialized
+count model may be required.
