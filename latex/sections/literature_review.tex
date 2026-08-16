@@ -1,0 +1,202 @@
+%============================================================
+% LITERATURE REVIEW
+%============================================================
+
+\section{Literature Review}
+
+\subsection{Count Data and the Poisson Distribution}
+
+Count outcomes occur frequently in medical and epidemiological
+research. Examples include the number of hospital visits, disease
+episodes, adverse events, and days with symptoms. The Poisson
+distribution is one of the standard probability models for such
+outcomes because it provides a simple representation of event counts
+through a single rate parameter.
+
+A key property of the Poisson distribution is equidispersion, meaning
+that the mean and variance are equal. This assumption can be
+restrictive in applications where individuals differ in their
+underlying event rates. When the observed variance is substantially
+larger than the mean, a standard Poisson model may therefore provide
+a poor description of the data. The assessment of such assumptions
+forms an important part of count-data modelling
+\citep{MolenberghsVerbeke2017}.
+
+Over-dispersion can arise for several reasons, including unobserved
+heterogeneity between individuals, dependence between events, and
+model misspecification. Alternative count-data models have therefore
+been developed to accommodate departures from the standard Poisson
+assumption, including negative binomial and COM-Poisson models
+\citep{Sellers2012,Azevedo2023}.
+
+For the present study, the main interest is not simply to allow for
+over-dispersion but to investigate whether the excess variation in
+headache frequency may reflect distinct underlying groups of
+patients. This motivates the use of finite mixture models.
+
+
+%============================================================
+\subsection{Heterogeneity and Finite Mixture Models}
+
+Finite mixture models provide a way of representing a population as
+a combination of several unobserved component distributions. Instead
+of assuming that all observations arise from the same probability
+distribution, the population is assumed to contain a finite number
+of latent groups, each with its own parameters and mixing proportion
+\citep{McLachlanPeel2000}.
+
+For count data, a Poisson finite mixture model assumes that the
+observed counts arise from one of several Poisson distributions. The
+latent component is not observed directly, but the probability that
+an observation belongs to each component can be estimated from the
+data.
+
+This approach is useful when over-dispersion is thought to result
+from differences between subpopulations. A mixture of Poisson
+distributions can have a variance greater than its mean even though
+each individual component follows a Poisson distribution. The
+additional variation arises from differences between the component-
+specific Poisson means.
+
+Finite mixture models have been applied in a wide range of areas,
+including medical research, where populations may contain individuals
+with different underlying disease or risk profiles
+\citep{McLachlanPeel2000}. In the context of headache frequency, this
+provides a useful framework for investigating whether patients can be
+described by different underlying levels of headache burden rather
+than by a single population-average rate.
+
+
+%============================================================
+\subsection{Nonparametric Maximum Likelihood Estimation}
+
+Before specifying a fixed number of mixture components, the
+underlying mixing distribution can be investigated using
+nonparametric maximum likelihood estimation (NPMLE). Rather than
+assuming in advance that the mixing distribution has a particular
+number of support points, NPMLE estimates the distribution directly
+from the observed data.
+
+The theoretical basis for NPMLE in mixture models was developed by
+Lindsay, who examined the geometry of mixture likelihoods and the
+properties of estimated mixing distributions
+\citep{Lindsay1983,Lindsay1983b}.
+
+NPMLE is useful in the present analysis because it provides an
+exploratory assessment of whether the data support a homogeneous
+population or several underlying support points. The gradient
+function can then be examined to identify regions that may correspond
+to candidate mixture components.
+
+This provides a link between exploratory analysis and the subsequent
+finite mixture models. Rather than choosing the number of components
+only by repeatedly fitting increasingly complex models, the NPMLE
+analysis provides information about the possible structure of the
+underlying mixing distribution.
+
+
+%============================================================
+\subsection{Estimation of Finite Mixture Models}
+
+Finite mixture models contain an unobserved component-membership
+variable, which makes direct maximum likelihood estimation more
+complicated. The expectation-maximization (EM) algorithm provides a
+general approach for estimating models with this type of missing or
+unobserved information \citep{McLachlanPeel2000}.
+
+The EM algorithm alternates between two stages. In the expectation
+step, the current parameter estimates are used to calculate the
+posterior probability that each observation belongs to each mixture
+component. In the maximization step, the parameters are updated using
+these probabilities. The process is repeated until convergence.
+
+The EM framework is particularly relevant to the present study because
+component membership is not directly observed. The estimated
+posterior probabilities provide both a means of estimating the model
+parameters and a basis for classifying individual patients according
+to their most likely latent headache-frequency group.
+
+
+%============================================================
+\subsection{Determining the Number of Components}
+
+An important issue in finite mixture modelling is determining how many
+components should be included. Adding components generally improves
+the likelihood, but excessive complexity can result in overfitting.
+Model selection therefore requires consideration of both goodness of
+fit and model complexity \citep{McLachlanPeel2000}.
+
+Information criteria provide a practical approach to this problem.
+The Akaike Information Criterion (AIC), introduced by Akaike
+\citep{Akaike1974}, balances model fit against the number of estimated
+parameters. Smaller AIC values indicate a preferred trade-off
+between fit and complexity.
+
+The Bayesian Information Criterion (BIC), proposed by Schwarz
+\citep{Schwarz1978}, applies a stronger penalty for model complexity
+than AIC. It is therefore possible for AIC and BIC to select
+different numbers of components when candidate models have similar
+likelihoods but different numbers of parameters.
+
+In finite mixture analysis, component selection should therefore not
+depend on a single numerical criterion. Information criteria can be
+considered alongside likelihood values, diagnostic plots, estimated
+mixing proportions, and the interpretability of the resulting
+components \citep{McLachlanPeel2000}.
+
+This consideration is particularly relevant to the present study,
+where the two- and three-component models provide different results
+under AIC and BIC.
+
+
+%============================================================
+\subsection{Mixture Models and Headache Frequency}
+
+Headache frequency is naturally represented as a count outcome when
+the outcome is defined as the number of headache days during a fixed
+period. The clinical data used in this study originate from a
+randomized trial investigating acupuncture for chronic headache in
+primary care \citep{Vickers2004}.
+
+A conventional Poisson model provides an initial framework for such
+data, but it assumes that patients share a common underlying rate
+after accounting for included covariates. This assumption may be
+unrealistic when there are substantial differences in headache
+frequency between patients.
+
+Patients with relatively few headache days may have a different
+underlying rate from patients who experience headaches on most days
+of the observation period. A finite mixture model provides a way to
+represent this possibility without requiring the latent groups to be
+defined in advance.
+
+The latent components are estimated from the observed distribution
+and can subsequently be examined for their statistical and clinical
+interpretability. The present study therefore uses Poisson finite
+mixture modelling to investigate whether the heterogeneity in
+baseline headache frequency can be represented by a small number of
+latent groups.
+
+
+%============================================================
+\subsection{Summary of the Literature}
+
+The literature provides a statistical basis for the modelling
+strategy used in this study. The Poisson distribution provides a
+natural starting point for count outcomes, but its equidispersion
+assumption can be restrictive when substantial heterogeneity is
+present. Finite mixture models provide one approach to representing
+this heterogeneity through latent subpopulations
+\citep{MolenberghsVerbeke2017,McLachlanPeel2000}.
+
+NPMLE provides a flexible approach for exploring the underlying
+mixing distribution, while the EM algorithm provides a practical
+method for estimating finite mixture parameters
+\citep{Lindsay1983,McLachlanPeel2000}. AIC and BIC provide
+complementary criteria for comparing models with different numbers
+of components \citep{Akaike1974,Schwarz1978}.
+
+Together, these methods provide the framework used in this study to
+investigate the distribution of headache frequency and to determine
+whether a finite mixture model provides a more informative
+description than a single Poisson distribution.
