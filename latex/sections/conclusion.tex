@@ -1,0 +1,57 @@
+%============================================================
+% CONCLUSION
+%============================================================
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This study investigated the distribution of baseline headache
+frequency using Poisson finite mixture models. The analysis began
+with a standard Poisson model and then considered finite mixtures to
+account for the substantial heterogeneity observed among patients.
+
+The exploratory analysis showed clear over-dispersion, with a
+variance-to-mean ratio of 2.78. The NPMLE analysis provided further
+evidence that the observed population was unlikely to be adequately
+represented by a single homogeneous Poisson distribution.
+
+Finite mixture models with two, three, four, and five components were
+compared. Although the Bayesian Information Criterion favored the
+two-component model, the Akaike Information Criterion favored the
+three-component model. The three-component solution was therefore
+selected for detailed interpretation because it provided the lowest
+AIC and produced a clear and interpretable separation of the
+population into low-, intermediate-, and high-frequency headache
+groups.
+
+The estimated component means were approximately 9.61, 13.80, and
+22.95 headache days, demonstrating substantial differences in
+underlying headache-frequency rates between the latent groups.
+Results obtained using CAMAN and FlexMix showed broadly similar
+component means, providing additional support for the identified
+heterogeneity.
+
+The analysis also demonstrated an important limitation of the fitted
+Poisson mixture. The model substantially underestimated the number of
+patients reporting the maximum value of 28 headache days. This
+suggests that the bounded nature of the four-week observation period
+should be considered in future modelling.
+
+Including age as a covariate showed that its association with
+headache frequency was not uniform across the latent groups. Age was
+statistically significant in one component, where a one-year increase
+in age was associated with an estimated 2.4\% decrease in the
+expected headache frequency, while no significant age effects were
+identified in the other two components.
+
+Overall, the findings demonstrate that Poisson finite mixture models
+provide a useful framework for investigating unobserved heterogeneity
+in headache-frequency data. The analysis also illustrates the
+importance of combining exploratory methods, model-selection
+criteria, graphical diagnostics, and substantive interpretation when
+choosing and evaluating a finite mixture model.
+
+Future work could consider models that explicitly account for the
+upper boundary of the headache-frequency outcome and could
+incorporate additional clinical or demographic covariates to further
+explain the observed heterogeneity.
